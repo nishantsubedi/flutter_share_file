@@ -1,8 +1,8 @@
 name: flutter_share_file
 description: This plugin is for sharing contents using Flutter. Supports only PNG image sharing for Now.
-version: 0.0.1
+version: 1.0.1+1
 author: Nishant Subedi <nishantsubedi1996@gmail.com>
-homepage:
+homepage: https://github.com/nishantsubedi/flutter_share_file
 
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"

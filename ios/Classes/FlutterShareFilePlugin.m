@@ -2,7 +2,6 @@
 
 @implementation FlutterShareFilePlugin
 
-@implementation FLTShareExtendPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
   FlutterMethodChannel* shareChannel = [FlutterMethodChannel
       methodChannelWithName:@"flutter_share_file"

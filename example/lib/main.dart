@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'dart:io';
 import 'package:flutter_share_file/flutter_share_file.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 
 void main() => runApp(new MyApp());
@@ -29,9 +28,9 @@ class _MyAppState extends State<MyApp> {
           children: <Widget>[
             new RaisedButton(
               onPressed: () async {
-                File f =
-                    await ImagePicker.pickImage(source: ImageSource.gallery);
-                FlutterShareFile.shareImage(f.path, "image.png");
+                Directory dir = await getApplicationDocumentsDirectory();
+                File testFile = new File("${dir.path}/image.png");
+                FlutterShareFile.shareImage(dir.path, "image.png");
               },
               child: new Text("share image"),
             ),
@@ -40,5 +39,4 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
-
 }
