@@ -8,7 +8,7 @@
             binaryMessenger:[registrar messenger]];
 
 [shareChannel setMethodCallHandler:^(FlutterMethodCall *call, FlutterResult result) {
-    if ([@"shareFile" isEqualToString:call.method]) {
+    if ([@"shareimage" isEqualToString:call.method]) {
       NSDictionary *arguments = [call arguments];
       NSString *shareText = arguments[@"text"];
       NSString *shareType = arguments[@"type"];

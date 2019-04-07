@@ -1,3 +1,11 @@
-## 1.0.
+## 1.0.0
 
 * Supports image Sharing.
+
+## 1.0.2
+
+* bug fix
+
+## 1.1.
+
+* Breaking change. Migrate from the deprecated original Android Support Library to AndroidX. This shouldn't result in any functional changes, but it requires   any Android apps using this plugin to [also migrate](https://developer.android.com/jetpack/androidx/migrate) if they're using the original support library.

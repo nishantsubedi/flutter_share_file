@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:flutter_share_file/flutter_share_file.dart';
-import 'package:path_provider/path_provider.dart';
 
 void main() => runApp(new MyApp());
 

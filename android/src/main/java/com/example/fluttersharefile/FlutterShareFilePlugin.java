@@ -14,7 +14,7 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
 
-import android.support.v4.content.FileProvider;
+import androidx.core.content.FileProvider;
 
 /** FlutterShareFilePlugin */
 public class FlutterShareFilePlugin extends FlutterActivity implements MethodCallHandler {
