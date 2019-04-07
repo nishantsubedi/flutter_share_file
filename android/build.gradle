@@ -32,6 +32,6 @@ android {
         disable 'InvalidPackage'
     }
     dependencies {
-        implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'
+        api 'androidx.legacy:legacy-support-core-utils:1.0.0'
     }
 }
