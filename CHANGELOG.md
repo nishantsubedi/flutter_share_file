@@ -12,4 +12,8 @@
 
 ## 1.1.2
 
+## 1.1.3+1
+
+* Text can be Shared with Image for Android.
+
 * bugs fix
