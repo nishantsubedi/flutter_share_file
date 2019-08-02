@@ -12,6 +12,7 @@
       NSDictionary *arguments = [call arguments];
       NSString *shareText = arguments[@"text"];
       NSString *shareType = arguments[@"type"];
+      NSString *message = arguments[@"message"];
 
       if (shareText.length == 0) {
         result(
@@ -31,19 +32,19 @@
       }
 
         if ([shareType isEqualToString:@"text"]) {
-            [self share:shareText
+            [self share:@[shareText]
          withController:[UIApplication sharedApplication].keyWindow.rootViewController
                atSource:originRect];
             result(nil);
         } else if([shareType isEqualToString:@"file"]) {
             NSURL *url = [NSURL fileURLWithPath:shareText];
-            [self share:url
+            [self share:@[url]
          withController:[UIApplication sharedApplication].keyWindow.rootViewController
                atSource:originRect];
             result(nil);
         } else if ([shareType isEqualToString:@"image"]) {
             UIImage *image = [UIImage imageWithContentsOfFile:shareText];
-            [self share:image
+            [self share:@[image, message]
          withController:[UIApplication sharedApplication].keyWindow.rootViewController
                atSource:originRect];
         }
@@ -57,7 +58,7 @@
     withController:(UIViewController *)controller
           atSource:(CGRect)origin {
   UIActivityViewController *activityViewController =
-      [[UIActivityViewController alloc] initWithActivityItems:@[ sharedItems ]
+      [[UIActivityViewController alloc] initWithActivityItems:sharedItems
                                         applicationActivities:nil];
   activityViewController.popoverPresentationController.sourceView = controller.view;
   if (!CGRectIsEmpty(origin)) {
