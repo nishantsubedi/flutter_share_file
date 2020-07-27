@@ -17,3 +17,7 @@
 * Text can be Shared with Image for Android.
 
 * bugs fix
+
+## 1.2.0+5
+
+* Added support to share pdf/file.
