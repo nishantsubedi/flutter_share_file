@@ -1,54 +1,67 @@
 package com.example.fluttersharefile;
 
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-
-import java.io.File;
-import java.util.HashMap;
-
-import io.flutter.app.FlutterActivity;
-
-import io.flutter.plugin.common.MethodCall;
+import android.app.Activity;
+import io.flutter.embedding.engine.plugins.FlutterPlugin;
+import io.flutter.embedding.engine.plugins.activity.ActivityAware;
+import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
+import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodChannel;
-import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
-import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
 
-import androidx.core.content.FileProvider;
+/** Plugin method host for presenting a share sheet via Intent */
+public class FlutterShareFilePlugin implements FlutterPlugin, ActivityAware {
 
-/** FlutterShareFilePlugin */
-public class FlutterShareFilePlugin extends FlutterActivity implements MethodCallHandler {
-  /** Plugin registration. */
-  private static Registrar instance;
+  private static final String CHANNEL = "flutter_share_file";
+  private MethodCallHandler handler;
+  private Share share;
+  private MethodChannel methodChannel;
 
   public static void registerWith(Registrar registrar) {
-    final MethodChannel channel = new MethodChannel(registrar.messenger(), "flutter_share_file");
-    channel.setMethodCallHandler(new FlutterShareFilePlugin());
-    instance = registrar;
+    FlutterShareFilePlugin plugin = new FlutterShareFilePlugin();
+    plugin.setUpChannel(registrar.activity(), registrar.messenger());
   }
 
   @Override
-  public void onMethodCall(MethodCall call, Result result) {
-    if (call.method.equals("shareimage")) {
-      Object arguments = call.arguments;
-      HashMap<String, String> argsMap = (HashMap<String, String>) arguments;
-      String fileName = argsMap.get("fileName");
-      String message = argsMap.get("message");
-      shareFile(fileName, message);
-    } else {
-      result.notImplemented();
-    }
+  public void onAttachedToEngine(FlutterPluginBinding binding) {
+    setUpChannel(null, binding.getBinaryMessenger());
   }
 
-  private void shareFile(String fileName, String message) {
-    File imageFile = new File(instance.activeContext().getCacheDir(), fileName);
-    Uri contentUri = FileProvider.getUriForFile(instance.activeContext(), "com.example.fluttersharefile", imageFile);
-    Intent shareIntent = new Intent(Intent.ACTION_SEND);
-    shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri);
-    shareIntent.setType("image/png");
-    shareIntent.putExtra(Intent.EXTRA_TEXT, message);
-    shareIntent.setType("text/plain");
-    instance.activity().startActivity(Intent.createChooser(shareIntent, "Share image using"));
-}
+  @Override
+  public void onDetachedFromEngine(FlutterPluginBinding binding) {
+    methodChannel.setMethodCallHandler(null);
+    methodChannel = null;
+    share = null;
+  }
+
+  @Override
+  public void onAttachedToActivity(ActivityPluginBinding binding) {
+    share.setActivity(binding.getActivity());
+  }
+
+  @Override
+  public void onDetachedFromActivity() {
+    tearDownChannel();
+  }
+
+  @Override
+  public void onReattachedToActivityForConfigChanges(ActivityPluginBinding binding) {
+    onAttachedToActivity(binding);
+  }
+
+  @Override
+  public void onDetachedFromActivityForConfigChanges() {
+    onDetachedFromActivity();
+  }
+
+  private void setUpChannel(Activity activity, BinaryMessenger messenger) {
+    methodChannel = new MethodChannel(messenger, CHANNEL);
+    share = new Share(activity);
+    handler = new MethodCallHandler(share);
+    methodChannel.setMethodCallHandler(handler);
+  }
+
+  private void tearDownChannel() {
+    share.setActivity(null);
+    methodChannel.setMethodCallHandler(null);
+  }
 }
