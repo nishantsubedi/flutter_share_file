@@ -3,7 +3,7 @@
 <application>
   <provider
     android:name="androidx.core.content.FileProvider"
-    android:authorities="com.example.fluttersharefile"
+    android:authorities="${applicationId}.contentprovider"
     android:exported="false"
     android:grantUriPermissions="true">
     <meta-data

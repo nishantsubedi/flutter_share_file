@@ -20,7 +20,7 @@ class Share {
 
     void shareFile(String fileName, String message, String type) {
         File imageFile = new File(activity.getApplicationContext().getCacheDir(), fileName);
-        Uri contentUri = FileProvider.getUriForFile(activity.getApplicationContext(), "com.example.fluttersharefile", imageFile);
+        Uri contentUri = FileProvider.getUriForFile(activity.getApplicationContext(), activity.getApplicationContext().getPackageName() + ".contentprovider", imageFile);
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri);
         shareIntent.setType(type);
