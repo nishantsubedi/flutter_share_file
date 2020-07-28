@@ -5,7 +5,7 @@ author: Nishant Subedi <nishantsubedi1996@gmail.com>
 homepage: https://github.com/nishantsubedi/flutter_share_file
 
 environment:
-  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+  sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
   flutter:
