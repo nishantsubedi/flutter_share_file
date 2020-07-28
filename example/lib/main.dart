@@ -29,7 +29,7 @@ class _MyAppState extends State<MyApp> {
               onPressed: () async {
                 Directory dir = await getApplicationDocumentsDirectory();
                 File testFile = new File("${dir.path}/image.png");
-                FlutterShareFile.shareImage(dir.path, "image.png");
+                FlutterShareFile.shareImage(dir.path, "image.png", ShareFileType.image);
               },
               child: new Text("share image"),
             ),

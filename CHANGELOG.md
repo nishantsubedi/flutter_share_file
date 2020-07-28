@@ -21,3 +21,7 @@
 ## 1.2.0+5
 
 * Added support to share pdf/file.
+
+## 1.2.1+6
+
+* Added support to share pdf/file.
